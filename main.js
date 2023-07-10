@@ -72,6 +72,73 @@ function draw(){
 
         fill("black");
         stroke("black");
-        Reflect(680, 0, 20, 700)
+        rect(680, 0, 20, 700)
+
+        fill("black");
+        stroke("black");
+        rect(0, 0, 20, 700);
+
+        if(scoreRightWrist > 0.2){
+            fill("red");
+            stroke("red");
+            circle(rightWristX, rightWristY, 30);
+        }
+
+        //Chamando a função paddleInCanvas
+        paddleInCanvas();
+
+        //Paddle (raquete) esquerda -> jogador
+        fill(250, 0, 0);
+        stroke(0, 0, 250);
+        strokeWeight(0.5);
+        paddle1Y = rightWristY;
+        rect(paddle1X,paddle1Y,paddle1,paddle1Height,100);
+
+        //paddle direita -> computador
+        fill("#FFA500");
+        stroke("FFA500");
+        var paddle2y = ball.y-paddle2Height/2; rect(paddle2Y,paddle2y,paddle2,paddle2Height,100);
+
+        //Chamando a função midline
+        midline();
+
+        //Chamando a função drawScore
+        drawScore();
+
+        //Chamando a função models
+        models();
+
+        //Chamando a função move
+        move();
     }
+}
+
+//Função reset quando a bola não entra no contato com a raquete
+function reset(){
+    ball.x = width/2+100;
+    ball.y = height/2+100;
+    ball.dx = 3;
+    ball.dy = 3;
+}
+
+//A função midline desenha a linha central do campo
+function midline(){
+    for(i=0;i<480;i+=10){
+        var y = 0;
+        fill("white");
+        stroke(0);
+        rect(width/2,y+i,10,480);
+    }
+}
+
+//A função drawScore mostra o placar
+function drawScore(){
+    textAlign(CENTER);
+    textSize(20);
+    fill("red"); //cor da fonte
+    stroke(250, 0, 0);
+    text("Jogador:", 100, 50);
+    text(playerscore, 180, 50);
+    text("Computador:", 500, 50);
+    text(pcscore, 595, 50);
 }
